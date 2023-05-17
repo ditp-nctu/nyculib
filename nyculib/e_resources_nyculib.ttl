@@ -3,7 +3,7 @@ PREFIX dcterms: <http://purl.org/dc/terms/>
 PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
 PREFIX schema: <http://schema.org/>
 PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
-PREFIX : <http://lib.nycu.edu.tw/ontology/>
+PREFIX : <http://lib.nycu.edu.tw/ontology#>
 
 #所有館方可取得的學術資料,包括館藏系統、電子資料庫等具有 API 可透過網頁擷取資料的系統
 :E_Resource a rdfs:Class ;
