@@ -1,3 +1,4 @@
+@prefix bf: <http://id.loc.gov/ontologies/bibframe/> .
 PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
 PREFIX dcterms: <http://purl.org/dc/terms/>
 PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
@@ -7,15 +8,16 @@ PREFIX : <http://lib.nycu.edu.tw/ontology#>
 
 #所有館方可取得的學術資料,包括館藏系統、電子資料庫等具有 API 可透過網頁擷取資料的系統
 :E_Resource a rdfs:Class ;
-    rdfs:subClassOf schema:DataCatalog ;
+    rdfs:subClassOf schema:DataCatalog, bf:Electronic ;
     rdfs:comment "所有館方可取得的學術資料,包括館藏系統、電子資料庫等具有 API 可透過網頁擷取資料的系統"@zh-tw .
 
 #取得、整合並更新
 
-:providedUrl a rdf:Property ;
-    rdfs:domain :E_Resource ;
-    rdfs:range schema:URL ;
-    rdfs:comment "電子資源之進入點或官網，為一泛用屬性，尚未特指技術文件或API等，用於資料整理"@zh-tw .
+#:providedUrl a rdf:Property ;
+#    rdfs:domain :E_Resource ;
+#    rdfs:range schema:URL ;
+#    rdfs:comment "電子資源之進入點或官網，為一泛用屬性，尚未特指技術文件或API等，用於資料整理"@zh-tw .
+# 為節省語彙，由 bf:electronicLocator 取代
 
 :RedirectAction a rdfs:Class ;
     rdfs:subClassOf schema:Action ;
@@ -23,12 +25,12 @@ PREFIX : <http://lib.nycu.edu.tw/ontology#>
 
 #Primo
 :Primo a :E_Resource ;
-    :providedUrl "https://nycu.primo.exlibrisgroup.com/discovery/search?vid=886UST_NYCU:886UST_NYCU"^^schema:URL ;
+    bf:electronicLocator "https://nycu.primo.exlibrisgroup.com/discovery/search?vid=886UST_NYCU:886UST_NYCU"^^schema:URL ;
     rdfs:label "NYCU Library Search"@en .
 
 #CrossRef
 :CrossRef a :E_Resource, schema:APIReference ;
-    :providedUrl "https://www.crossref.org/documentation/retrieve-metadata/rest-api/"^^schema:URL ;
+    bf:electronicLocator "https://www.crossref.org/documentation/retrieve-metadata/rest-api/"^^schema:URL ;
     schema:documentation "https://api.crossref.org/swagger-ui/"^^schema:URL ;
     schema:providedUrl "https://api.crossref.org/"^^schema:URL ;
     schema:encodingFormat "application/json"^^schema:URL ;
@@ -36,13 +38,13 @@ PREFIX : <http://lib.nycu.edu.tw/ontology#>
 
 #Pure
 :Pure a :E_Resource ;
-    :providedUrl "https://scholar.nycu.edu.tw/"^^schema:URL ;
+    bf:electronicLocator "https://scholar.nycu.edu.tw/"^^schema:URL ;
     rdfs:label "National Yang Ming Chiao Tung University Academic Hub"@en ;
     rdfs:label "國立陽明交通大學研發優勢分析平台"@zh-tw .
 
 #Browzine
 :Browzine a :E_Resource ;
-    :providedUrl "https://browzine.com/"^^schema:URL ;
+    bf:electronicLocator "https://browzine.com/"^^schema:URL ;
     schema:potentialAction
         [
             a :RedirectAction ;
@@ -55,7 +57,7 @@ PREFIX : <http://lib.nycu.edu.tw/ontology#>
 
 #JCR
 :JCR a :E_Resource ;
-    :providedUrl "https://jcr.clarivate.com/jcr/home"^^schema:URL ;
+    bf:electronicLocator "https://jcr.clarivate.com/jcr/home"^^schema:URL ;
     rdfs:label "Journal Citation Reports"@en ;
     dcterms:description
         "BrowZine is an app for Apple or Android smart phones and devices that helps you flip through the scholarly e-journals available through Purdue University Libraries. Browzine has sorted Purdue's e-journals into broad subjects and then into narrower disciplines. You can save and organize your most-used e-journals on virtual bookshelves saved to your account. The result is an easy and familiar way to browse through, read, and monitor scholarly e-journals across disciplines."@en ;
@@ -63,7 +65,7 @@ PREFIX : <http://lib.nycu.edu.tw/ontology#>
 
 #InCites
 :InCites a :E_Resource ;
-    :providedUrl "https://incites.clarivate.com/"^^schema:URL ;
+    bf:electronicLocator "https://incites.clarivate.com/"^^schema:URL ;
     rdfs:label "InCites"@en ;
     dcterms:description
         "InCites Benchmarking & Analytics is a customized, web-based research evaluation tool that can help you develop your research strategy. InCites B&A allows you to analyze institutional productivity, monitor collaboration activity, identify influential researchers, showcase strengths, and discover areas of opportunity."@en ;
@@ -71,10 +73,10 @@ PREFIX : <http://lib.nycu.edu.tw/ontology#>
 
 #HyRead
 :HyRead a :E_Resource ;
-    :providedUrl "https://nycu.ebook.hyread.com.tw/"^^schema:URL ;
+    bf:electronicLocator "https://nycu.ebook.hyread.com.tw/"^^schema:URL ;
     rdfs:label "HyRead 電子書"@zh-tw .
 
 #WoS
 :WoS a :E_Resource ;
-    :providedUrl "https://www.webofscience.com/wos/woscc/basic-search"^^schema:URL ;
+    bf:electronicLocator "https://www.webofscience.com/wos/woscc/basic-search"^^schema:URL ;
     rdfs:label "Web of Science"@en .
