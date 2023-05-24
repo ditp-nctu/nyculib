@@ -16,13 +16,11 @@
 package art.cctcc.nycu.lib;
 
 import static art.cctcc.nycu.lib.Settings.NS;
+import static art.cctcc.nycu.lib.Settings.ONT_PREFIX_MAP;
 import java.nio.file.Path;
-import java.util.Map;
 import java.util.Map.Entry;
 import java.util.function.Consumer;
 import org.apache.jena.query.QuerySolution;
-import org.apache.jena.rdf.model.Model;
-import org.apache.jena.rdf.model.ModelFactory;
 import tech.metacontext.utils.SparqlQuery;
 
 /**
@@ -31,8 +29,6 @@ import tech.metacontext.utils.SparqlQuery;
  */
 public class NYCULibrary {
 
-  private static final Map<String, String> ONT_PREFIX_MAP
-          = ModelFactory.createOntologyModel().getNsPrefixMap();
   private static String queryString
           = """
             PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>

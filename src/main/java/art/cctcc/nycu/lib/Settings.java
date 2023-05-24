@@ -15,6 +15,9 @@
  */
 package art.cctcc.nycu.lib;
 
+import java.util.Map;
+import org.apache.jena.rdf.model.ModelFactory;
+
 /**
  *
  * @author Jonathan Chang, Chun-yien <ccy@musicapoetica.org>
@@ -22,4 +25,7 @@ package art.cctcc.nycu.lib;
 public class Settings {
 
   public static final String NS = "http://lib.nycu.edu.tw/ontology#";
+
+  public static final Map<String, String> ONT_PREFIX_MAP
+          = ModelFactory.createOntologyModel().getNsPrefixMap();
 }
