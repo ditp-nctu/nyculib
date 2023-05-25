@@ -33,34 +33,40 @@ public class NYCULibrary {
           = """
             PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
             PREFIX owl: <http://www.w3.org/2002/07/owl#>
+            PREFIX bf: <http://id.loc.gov/ontologies/bibframe/> 
             
             PREFIX : <%s>
             
-            SELECT ?s ?p
+            SELECT ?name ?url
             WHERE {
-              ?s a rdfs:Class;
-                ?p []
+              ?s a :E_Resource ;
+                rdfs:label ?name ;
+                bf:electronicLocator ?url
             }
             """;
 
-  private static Consumer<QuerySolution> processor = t -> {
-    var ite = t.varNames();
-    while (ite.hasNext()) {
-      var name = ite.next();
-      var res = t.getResource(name).toString();
-      for (Entry<String, String> entry : ONT_PREFIX_MAP.entrySet()) {
-        res = res.replace(entry.getValue(), entry.getKey() + ":");
-      }
-      System.out.print(res + "\t");
+    private static Model m = ModelFactory.createDefaultModel();
+
+    private static Consumer<QuerySolution> processor = t -> {
+        var ite = t.varNames();
+        while (ite.hasNext()) {
+            var name = ite.next();
+            if (t.get(name) instanceof Resource res) {
+                res = res.inModel(m);
+                System.out.print(res + "\t");
+            } else {
+                var value = t.get(name).asLiteral().getString();
+                System.out.println(value);
+            }
+        }
+        System.out.println();
+    };
+
+    public static void main(String[] args) {
+
+        var source_folder = Path.of("nyculib");
+        var sq = new SparqlQuery(source_folder, String.format(queryString, NS));
+        ONT_PREFIX_MAP.put("", NS);
+        sq.processResults(processor);
     }
-    System.out.println();
-  };
-
-  public static void main(String[] args) {
-
-    var source_folder = Path.of("nyculib");
-    var sq = new SparqlQuery(source_folder, String.format(queryString, NS));
-    ONT_PREFIX_MAP.put("", NS);
-    sq.processResults(processor);
-  }
 }
